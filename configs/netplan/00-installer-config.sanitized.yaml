@@ -1,0 +1,9 @@
+# Sanitised portfolio example; hardware identifiers omitted.
+network:
+  ethernets:
+    ens18:
+      dhcp4: true
+      match:
+        name: ens18
+      set-name: ens18
+  version: 2

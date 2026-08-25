@@ -1,79 +1,60 @@
-# Cybersecurity Homelab
+# Enterprise IT & Cybersecurity Homelab
 
-A hands-on cybersecurity lab built on Proxmox VE documenting 
-my journey across offensive security, network infrastructure, 
-virtualisation, and system administration.
+A low-cost, offline-first homelab used to practise infrastructure, networking, Linux administration, troubleshooting, access control, defensive security, and authorised security testing.
 
-## Lab Environment
+The lab runs on refurbished hardware and is documented as evidence-based projects. Each write-up separates the objective, implementation, validation, troubleshooting, and lessons learned.
 
-| Component | Details |
+## Current architecture
+
+```mermaid
+flowchart LR
+    Mac["MacBook management"] --> Router["Isolated router 192.168.0.0/24"]
+    Router --> PVE["Proxmox 192.168.0.100"]
+    Router --> PF["pfSense WAN 192.168.0.3"]
+    PF --> LAN["pfSense LAN 192.168.1.1"]
+    LAN --> Kali["Kali 192.168.1.100"]
+    LAN --> Ubuntu["lab-srv01 192.168.1.10"]
+    LAN --> Meta["Metasploitable 2"]
+```
+
+- `vmbr0`: physical/WAN and Proxmox management bridge
+- `vmbr1`: virtual-only lab bridge with no physical port
+- pfSense is the only router between the networks
+- The lab router currently has no internet access
+- Metasploitable is attached only to `vmbr1`
+
+See the [network architecture](architecture/network-architecture.md) and [asset inventory](architecture/asset-inventory.md).
+
+## Verified projects
+
+| Project | Evidence |
 |---|---|
-| Hypervisor | Proxmox VE 9.2 on Dell OptiPlex 3010 |
-| Firewall/Router | pfSense 2.8.1 |
-| Attacker Machine | Kali Linux 2026.1 |
-| Target 1 | Metasploitable 2 |
-| Target 2 | Ubuntu Server 26.04 |
-| Network | Isolated lab network via vmbr1 (192.168.1.x) |
-| Management | Proxmox web UI accessed remotely from MacBook |
+| [01 — Network foundation](projects/01-network-foundation/README.md) | Bridge separation, addressing, DHCP and connectivity |
+| [02 — Ubuntu recovery](projects/02-ubuntu-server-recovery/README.md) | Recovery, Netplan, SSH, hostname, reservation and snapshot |
+| [03 — Linux RBAC](projects/03-linux-rbac/README.md) | Users, groups, setgid directories and access tests |
+| [04 — Privilege escalation](labs/lab-04-privilege-escalation.md) | Existing authorised security-testing write-up |
 
-## Skills Demonstrated
+## Troubleshooting records
 
-**Infrastructure & Virtualisation**
-- Deployed bare-metal hypervisor (Proxmox VE) on consumer hardware
-- Configured multiple VMs with resource allocation
-- Implemented VM snapshots for lab state management
-- Managed storage across SSD and HDD
+- [Ubuntu had no IPv4 address](troubleshooting/ubuntu-network-dhcp.md)
+- [Omar could not access the shared directory](troubleshooting/missing-group-membership.md)
 
-**Networking**
-- Designed and implemented isolated lab network
-- Configured pfSense firewall with WAN/LAN separation
-- Set up DHCP server for lab network
-- Created virtual network bridges (vmbr0, vmbr1)
-- Implemented network segmentation to isolate attack traffic
+## Skills demonstrated
 
-**Offensive Security**
-- Network scanning and host discovery (Nmap)
-- Exploitation using Metasploit framework
-- Reverse shell attacks using Netcat
-- Linux privilege escalation techniques
+- Proxmox virtualisation and snapshots
+- pfSense routing, DHCP and network isolation
+- Linux recovery and server administration
+- Netplan and layered network troubleshooting
+- SSH remote administration
+- Linux users, groups, ownership, permissions and setgid
+- Evidence-led diagnosis and validation
 
-**System Administration**
-- Linux server configuration (Ubuntu Server, Kali, Debian)
-- SSH configuration and remote access
-- Disk management and partitioning
-- Service configuration and troubleshooting
+## Hardware and constraints
 
-## Network Architecture
-[MacBook] ──── [Home Router] ──── [Proxmox Host: 192.168.0.100]
-│
-├── pfSense VM (gateway)
-│   ├── WAN: 192.168.0.198
-│   └── LAN: 192.168.1.1
-│
-└── Isolated Lab Network (192.168.1.x)
-├── Kali Linux (attacker)
-├── Metasploitable 2 (target)
-└── Ubuntu Server (target)
+Approximately AUD $180: refurbished Intel Core i5-3470 desktop, 8 GB RAM, 128 GB SSD, old router and 2018 MacBook Pro. Limited RAM is handled by running only the VMs needed for each task.
 
-## Labs Completed
+## Documentation standard
 
-| Lab | Topic | Techniques |
-|---|---|---|
-| Lab 01 | Network Scanning | Nmap host discovery, port scanning |
-| Lab 02 | Exploitation | Metasploit, gaining root access |
-| Lab 03 | Reverse Shell | Netcat listener, shell access |
-| Lab 04 | Privilege Escalation | Sudo misconfiguration, SUID binary abuse |
+Each new project records its objective, environment, implementation, validation, troubleshooting, security considerations, and lessons learned. Passwords, private keys, tokens, unsanitised firewall exports and personal information are never committed.
 
-## Tools Used
-
-Nmap · Metasploit · Netcat · SSH · pfSense · Proxmox · GTFOBins
-
-## Certifications Being Pursued
-
-- AWS Cloud Practitioner
-- CompTIA Security+
-
-## Goal
-
-Build toward a career in cloud security engineering through 
-hands-on lab work, documentation, and real infrastructure experience.
+See [ROADMAP.md](ROADMAP.md) for planned IT operations, automation, blue-team and authorised security work.
