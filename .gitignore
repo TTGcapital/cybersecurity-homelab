@@ -1,0 +1,12 @@
+.DS_Store
+*.key
+*.pem
+*.p12
+*.pfx
+*.ovpn
+*.pcap
+*.pcapng
+*credentials*
+*secrets*
+.env
+.env.*
