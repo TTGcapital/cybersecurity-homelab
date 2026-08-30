@@ -32,7 +32,8 @@ See the [network architecture](architecture/network-architecture.md) and [asset 
 | [01 — Network foundation](projects/01-network-foundation/README.md) | Bridge separation, addressing, DHCP and connectivity |
 | [02 — Ubuntu recovery](projects/02-ubuntu-server-recovery/README.md) | Recovery, Netplan, SSH, hostname, reservation and snapshot |
 | [03 — Linux RBAC](projects/03-linux-rbac/README.md) | Users, groups, setgid directories and access tests |
-| [04 — Privilege escalation](labs/lab-04-privilege-escalation.md) | Existing authorised security-testing write-up |
+| [04 — SSH logging and monitoring](projects/04-ssh-logging-and-monitoring/README.md) | Authentication-log investigation, failed-login detection and Bash automation |
+| [Privilege escalation lab](labs/lab-04-privilege-escalation.md) | Existing authorised security-testing write-up |
 
 ## Troubleshooting records
 
@@ -45,8 +46,9 @@ See the [network architecture](architecture/network-architecture.md) and [asset 
 - pfSense routing, DHCP and network isolation
 - Linux recovery and server administration
 - Netplan and layered network troubleshooting
-- SSH remote administration
+- SSH remote administration and authentication-log analysis
 - Linux users, groups, ownership, permissions and setgid
+- Bash pipelines and threshold-based failed-login reporting
 - Evidence-led diagnosis and validation
 
 ## Hardware and constraints
