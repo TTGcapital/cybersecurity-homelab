@@ -15,10 +15,12 @@
 
 ## Automation and defensive security
 
+- [x] Investigate successful and failed SSH authentication
+- [x] Detect repeated failed logins
+- [x] Create a threshold-based SSH failure report
 - [ ] Create repeatable user-provisioning scripts
 - [ ] Learn Ansible using Ubuntu
 - [ ] Centralise SSH and firewall logs
-- [ ] Detect repeated failed logins
 - [ ] Write an incident-response playbook
 - [ ] Establish patch and vulnerability-management procedures
 
